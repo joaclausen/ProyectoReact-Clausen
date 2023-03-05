@@ -1,6 +1,18 @@
 import style from "./navbar.module.css"
 import {AppBar, Grid, Tabs, Toolbar, Tab} from '@mui/material'
-import Button2 from "../Button2"
+import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
+      right: -3,
+      top: 13,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+}));
 
 const Navbar = () => {
     return (
@@ -17,7 +29,9 @@ const Navbar = () => {
                         </Tabs>
                     </Grid>
                     <Grid xs={2}>
-                        <Button2 className={style.boton} number={2}/>
+                        <IconButton aria-label="cart">
+                            <StyledBadge badgeContent={4} color="secondary"> <ShoppingCartIcon /> </StyledBadge>
+                        </IconButton>
                     </Grid>
                 </Grid>
             </Toolbar>
