@@ -23,9 +23,10 @@ const Navbar = () => {
                     <Grid xs={10}>
                         <Tabs indicatorColor="secondary" textColor="inherit" value={0} centered>
                             <Tab label="Home"/>
-                            <Tab label="Products"/>
-                            <Tab label="About"/>
-                            <Tab label="Wishlist"/>
+                            {/* las tabs se habilitarán en una próxima versión del código */}
+                            <Tab label="Products" disabled/>
+                            <Tab label="About" disabled/>
+                            <Tab label="Wishlist" disabled/>
                         </Tabs>
                     </Grid>
                     <Grid xs={2}>
