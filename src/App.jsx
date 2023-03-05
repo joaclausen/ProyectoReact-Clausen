@@ -1,13 +1,13 @@
 import styles from './app.module.css'
 import Navbar from './components/Navbar'
-import Main from './components/main'
+import ItemListContainer from './components/ItemListContainer'
 
 function App() {
 
   return (
     <nav className={styles.container}>
       <Navbar/>
-      <Main/>
+      <ItemListContainer text="BIENVENIDOS A OVG"/>
     </nav>
   )
 
