@@ -2,6 +2,7 @@ import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
+import style from './cartwidget.module.css'
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
@@ -15,7 +16,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 const CartWidget = () => {
   return (
     <IconButton aria-label="cart">
-        <StyledBadge badgeContent={4} color="secondary"> <ShoppingCartIcon /> </StyledBadge>
+        <StyledBadge badgeContent={4} className={style.container}> <ShoppingCartIcon /> </StyledBadge>
     </IconButton>
   )
 }
