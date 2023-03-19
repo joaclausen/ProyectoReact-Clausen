@@ -50,13 +50,15 @@ const ItemListContainer = () => {
     console.log(productos)
   }, [page])
 
+  let itemStyle={textDecoration: "none"};
+
   return (
     <>
     <Grid container>
       {productos.map((product)=>(
         <Grid key={product.id} item xs={3}>
           <Item>
-            <Link to={`${product.id}`}>
+            <Link style={itemStyle} to={`${product.id}`}>
               <Card className={styles.container}>
                 <CardActionArea>
                   <CardMedia
@@ -68,7 +70,7 @@ const ItemListContainer = () => {
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h7" component="div">{product.name}</Typography>
-                    <Typography gutterBottom variant="p" component="div">$500</Typography>
+                    <Typography gutterBottom variant="p" component="div"><p></p>$500</Typography>
                   </CardContent>
                 </CardActionArea>
               </Card>
