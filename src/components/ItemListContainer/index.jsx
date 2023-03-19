@@ -1,17 +1,15 @@
 import { Pagination } from "@mui/material";
-import Producto from "../Producto";
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react'
+import { Grid } from '@mui/material';
+import Opcion from '../Opcion';
+import Paper from '@mui/material/Paper';
+import { styled } from '@mui/material/styles';
 import style from "./itemlistcontainer.module.css"
-
-
-
-
 
 const ItemListContainer = () => {
 
-  
   const [page, setPage] = useState(1);
   const handleChange = (event, value) => {setPage(value)}
 
@@ -24,6 +22,14 @@ const ItemListContainer = () => {
   };
 
   const [productos, setProductos] = useState([]);
+
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
 
   const getJuegos = async () => {
     try {
@@ -43,14 +49,18 @@ const ItemListContainer = () => {
 
   return (
     <>
-       {productos.map((product)=>(
-          <Producto key={product.id} product={product}/>
-        ))}
+    <Grid container>
+      {productos.map((product)=>(
+        <Grid item xs={3}>
+          <Item><Opcion product={product}/></Item>
+        </Grid>
+      ))}
+    </Grid>
 
-      <Stack spacing={2}>
-        <Typography>Page: {page}</Typography>
-        <Pagination count={44346} page={page} onChange={handleChange} />
-      </Stack>
+    <Stack spacing={2}>
+      <Typography>Page: {page}</Typography>
+      <Pagination count={44346} page={page} onChange={handleChange} />
+    </Stack>
 
     </>
   )
