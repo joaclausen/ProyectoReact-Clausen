@@ -2,10 +2,15 @@ import { Pagination } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react'
 import { Grid } from '@mui/material';
-import Opcion from '../Opcion';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
 import styles from "./itemlistcontainer.module.css"
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import { CardActionArea} from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const ItemListContainer = () => {
 
@@ -43,23 +48,41 @@ const ItemListContainer = () => {
   useEffect(() => {
     getJuegos();
     console.log(productos)
-
   }, [page])
 
   return (
     <>
     <Grid container>
       {productos.map((product)=>(
-        <Grid item xs={3}>
-          <Item><Opcion product={product}/></Item>
+        <Grid key={product.id} item xs={3}>
+          <Item>
+            <Link to={`${product.id}`}>
+              <Card className={styles.container}>
+                <CardActionArea>
+                  <CardMedia
+                    component="img"
+                    image={product.background_image}
+                    alt={product.name}
+                    height="200"
+                    width="100"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h7" component="div">{product.name}</Typography>
+                    <Typography gutterBottom variant="p" component="div">$500</Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Link>
+          </Item>
         </Grid>
       ))}
     </Grid>
 
-    <Stack className={styles.contaier} spacing={2}>
+    <div className={styles.container}>
+    <Stack spacing={2}>
       <Pagination count={44346} page={page} onChange={handleChange} />
     </Stack>
-
+    </div>
     </>
   )
 }
