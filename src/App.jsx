@@ -2,6 +2,8 @@ import styles from './app.module.css'
 import Navbar from './components/Navbar'
 import ItemListContainer from './components/ItemListContainer'
 import { useEffect, useState } from 'react'
+import {Navigate, Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
 
 function App() {
 
@@ -31,24 +33,14 @@ function App() {
 
   }, [count])
 
-  const siguiente = () =>{
-    setCount(count + 1);
-  }
-  const anterior = () =>{
-    count>1? setCount(count - 1):setCount(1);
-    
-  }
-  
-
-
   return (
     <nav className={styles.container}>
       <Navbar/>
-      <ItemListContainer text="BIENVENIDOS A OVG" productos={productos}/>
-      <h2>count: {count}</h2>
-      <button onClick={siguiente}>+</button>
-      <button onClick={anterior}>-</button>
-      
+      <Routes>
+        <Route path="/" element={<Navigate to="/home"/>}/>
+        <Route path="/home" element={<Home text="BIENVENIDOS A GVG"/>}/>
+        <Route path="/productos" element={<ItemListContainer productos={productos} count={count} setCount={setCount}/>}/>
+      </Routes>
     </nav>
   )
 
