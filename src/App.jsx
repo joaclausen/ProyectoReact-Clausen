@@ -26,19 +26,18 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    getJuegos();
+
+  }, [count])
+
   const siguiente = () =>{
     setCount(count + 1);
- 
   }
   const anterior = () =>{
     count>1? setCount(count - 1):setCount(1);
     
   }
-
-  useEffect(() => {
-    getJuegos();
-
-  }, [])
   
 
 
