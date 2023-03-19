@@ -1,3 +1,4 @@
+import Item from "../Item";
 import style from "./itemlistcontainer.module.css"
 
 const ItemListContainer = ({productos, count, setCount}) => {
@@ -12,9 +13,7 @@ const ItemListContainer = ({productos, count, setCount}) => {
   return (
     <>
        {productos.map((product)=>(
-
-          <p key={product.id}>{product.name}</p>
-
+          <Item key={product.id} product={product}/>
         ))}
       <h2>Pagina: {count}</h2>
       <button onClick={siguiente}>+</button>

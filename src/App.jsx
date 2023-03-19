@@ -4,8 +4,15 @@ import ItemListContainer from './components/ItemListContainer'
 import { useEffect, useState } from 'react'
 import {Navigate, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 function App() {
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+    },
+  });
 
   const options = {
     method: 'GET',
@@ -30,18 +37,20 @@ function App() {
 
   useEffect(() => {
     getJuegos();
+    console.log(productos)
 
   }, [count])
 
   return (
-    <nav className={styles.container}>
+    <ThemeProvider theme={darkTheme} className={styles.container}>
+      <CssBaseline />
       <Navbar/>
       <Routes>
         <Route path="/" element={<Navigate to="/home"/>}/>
         <Route path="/home" element={<Home text="BIENVENIDOS A GVG"/>}/>
         <Route path="/productos" element={<ItemListContainer productos={productos} count={count} setCount={setCount}/>}/>
       </Routes>
-    </nav>
+    </ThemeProvider>
   )
 
 }
