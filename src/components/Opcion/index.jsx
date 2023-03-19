@@ -17,7 +17,8 @@ const Opcion = ({product}) => {
         width="100"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">{product.name}</Typography>
+        <Typography gutterBottom variant="h7" component="div">{product.name}</Typography>
+        <Typography gutterBottom variant="p" component="div">$500</Typography>
       </CardContent>
     </CardActionArea>
   </Card>

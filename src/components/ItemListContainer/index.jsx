@@ -1,12 +1,11 @@
 import { Pagination } from "@mui/material";
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react'
 import { Grid } from '@mui/material';
 import Opcion from '../Opcion';
 import Paper from '@mui/material/Paper';
 import { styled } from '@mui/material/styles';
-import style from "./itemlistcontainer.module.css"
+import styles from "./itemlistcontainer.module.css"
 
 const ItemListContainer = () => {
 
@@ -57,8 +56,7 @@ const ItemListContainer = () => {
       ))}
     </Grid>
 
-    <Stack spacing={2}>
-      <Typography>Page: {page}</Typography>
+    <Stack className={styles.contaier} spacing={2}>
       <Pagination count={44346} page={page} onChange={handleChange} />
     </Stack>
 
