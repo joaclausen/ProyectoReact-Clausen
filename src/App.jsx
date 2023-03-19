@@ -6,6 +6,7 @@ import {Navigate, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import error404img from './components/img/404.jpg';
 
 function App() {
   const darkTheme = createTheme({
@@ -49,6 +50,7 @@ function App() {
         <Route path="/" element={<Navigate to="/home"/>}/>
         <Route path="/home" element={<Home text="BIENVENIDOS A GVG"/>}/>
         <Route path="/productos" element={<ItemListContainer productos={productos} count={count} setCount={setCount}/>}/>
+        <Route path="*" element={<img className={styles.notFound}  src={error404img} alt="404 not found"/>}/>
       </Routes>
     </ThemeProvider>
   )

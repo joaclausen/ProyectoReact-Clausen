@@ -5,7 +5,7 @@ import {NavLink} from 'react-router-dom';
 const Navbar = () => {
     return (
         <nav className={style.container}>
-            <h1 className={style.nombre}>GVG</h1> 
+            <NavLink to="/home" className={style.nombre}>GVG</NavLink> 
             <NavLink to="/home">Home</NavLink>
             <NavLink to="/productos">Products</NavLink>
             <CartWidget/>
