@@ -2,3 +2,14 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+.filtros{
+    margin: 1vh;
+    display: flex;
+    justify-content: center;
+}
+
+.buscador{
+    border: gray 1px solid;
+    padding: 0.5vh;
+}

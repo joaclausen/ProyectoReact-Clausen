@@ -1,4 +1,4 @@
-import { Pagination } from "@mui/material";
+import { Pagination} from "@mui/material";
 import Stack from '@mui/material/Stack';
 import { useEffect, useState } from 'react'
 import { Grid } from '@mui/material';
@@ -13,9 +13,11 @@ import { CardActionArea} from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const ItemListContainer = () => {
-
+  const [productos, setProductos] = useState([]);
+  const [searchTitle, setSearchTitle] = useState("");
+  const [filterParam, setFilterParam] = useState("");
   const [page, setPage] = useState(1);
-  const handleChange = (event, value) => {setPage(value)}
+  const handleChange = (event, value) => {setPage(value)};
 
   const options = {
     method: 'GET',
@@ -24,8 +26,6 @@ const ItemListContainer = () => {
       'X-RapidAPI-Host': 'rawg-video-games-database.p.rapidapi.com'
     }
   };
-
-  const [productos, setProductos] = useState([]);
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -47,15 +47,32 @@ const ItemListContainer = () => {
 
   useEffect(() => {
     getJuegos();
-    console.log(productos)
   }, [page])
 
   let itemStyle={textDecoration: "none"};
 
   return (
     <>
+    <form className={styles.filtros}>
+      <input className={styles.buscador} type="search" placeholder="Search" onChange={(e) => setSearchTitle(e.target.value)}/>
+      <select onChange={(e)=>{setFilterParam(e.target.value)}}>
+        <option value="">Filter By Genre</option>
+        <option value="">Any</option>
+        <option value="Action">Action</option>
+        <option value="RPG">RPG</option>
+        <option value="Shooter">Shooter</option>
+      </select>
+    </form>
     <Grid container>
-      {productos.map((product)=>(
+      {productos.filter((value)=>{
+        if(searchTitle==="" && filterParam===""){return value}
+         else if ( (value.name.toLowerCase().includes(searchTitle.toLocaleLowerCase()))){
+           return value;
+        } 
+        else if (searchTitle==="" && (value.genres[0].name.toLowerCase().includes(filterParam.toLocaleLowerCase()))){
+          return value;
+        }
+      }).map((product)=>(
         <Grid key={product.id} item xs={3}>
           <Item>
             <Link style={itemStyle} to={`${product.id}`}>
@@ -81,9 +98,9 @@ const ItemListContainer = () => {
     </Grid>
 
     <div className={styles.container}>
-    <Stack spacing={2}>
-      <Pagination count={44346} page={page} onChange={handleChange} />
-    </Stack>
+      <Stack spacing={2}>
+        <Pagination count={44346} page={page} onChange={handleChange} />
+      </Stack>
     </div>
     </>
   )
