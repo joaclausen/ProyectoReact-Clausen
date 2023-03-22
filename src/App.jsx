@@ -20,7 +20,7 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path="/" element={<Navigate to="/home"/>}/>
-        <Route path="/home" element={<Home text="BIENVENIDOS A GVG"/>}/>
+        <Route path="/home" element={<Home text="WELCOME TO GVG"/>}/>
         <Route path="/productos" element={<ItemListContainer/>}/>
         <Route path="/productos/:id" element={<DetalleProducto/>}/>
         <Route path="*" element={<img className={styles.notFound}  src="https://ucarecdn.com/8d79cbc5-bbb0-4664-9379-1e891283c778/404.jpg" alt="404 not found"/>}/>

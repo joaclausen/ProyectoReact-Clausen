@@ -51,26 +51,47 @@ const ItemListContainer = () => {
 
   let itemStyle={textDecoration: "none"};
 
+  
+
   return (
     <>
     <form className={styles.filtros}>
       <input className={styles.buscador} type="search" placeholder="Search" onChange={(e) => setSearchTitle(e.target.value)}/>
       <select onChange={(e)=>{setFilterParam(e.target.value)}}>
         <option value="">Filter By Genre</option>
-        <option value="">Any</option>
         <option value="Action">Action</option>
+        <option value="Adventure">Adventure</option>
         <option value="RPG">RPG</option>
         <option value="Shooter">Shooter</option>
+        <option value="Puzzle">Puzzle</option>
+        <option value="Indie">Indie</option>
+        <option value="Platformer">Platformer</option>
+        <option value="Massively Multiplayer">Massively Multiplayer</option>
+        <option value="Sports">Sports</option>
+        <option value="Racing">Racing</option>
       </select>
     </form>
     <Grid container>
       {productos.filter((value)=>{
         if(searchTitle==="" && filterParam===""){return value}
-         else if ( (value.name.toLowerCase().includes(searchTitle.toLocaleLowerCase()))){
-           return value;
-        } 
-        else if (searchTitle==="" && (value.genres[0].name.toLowerCase().includes(filterParam.toLocaleLowerCase()))){
+        else if (filterParam==="" &&  (value.name.toLowerCase().includes(searchTitle.toLocaleLowerCase()))){
           return value;
+        } 
+        else if (searchTitle==="" && ( 
+          (value.genres[0]?.name.toLowerCase()===filterParam.toLocaleLowerCase()) ||
+          (value.genres[1]?.name.toLowerCase()===filterParam.toLocaleLowerCase()) ||
+          (value.genres[2]?.name.toLowerCase()===filterParam.toLocaleLowerCase()) ||
+          (value.genres[3]?.name.toLowerCase()===filterParam.toLocaleLowerCase())
+          )){
+          return value;    
+        }
+        else if ((value.name.toLowerCase().includes(searchTitle.toLocaleLowerCase())) && (
+          (value.genres[0]?.name.toLowerCase()===filterParam.toLocaleLowerCase()) ||
+          (value.genres[1]?.name.toLowerCase()===filterParam.toLocaleLowerCase()) ||
+          (value.genres[2]?.name.toLowerCase()===filterParam.toLocaleLowerCase()) ||
+          (value.genres[3]?.name.toLowerCase()===filterParam.toLocaleLowerCase())
+          )){
+          return value;    
         }
       }).map((product)=>(
         <Grid key={product.id} item xs={3}>
