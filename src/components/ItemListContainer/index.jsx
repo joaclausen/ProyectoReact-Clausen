@@ -1,31 +1,19 @@
-import { Pagination} from "@mui/material";
-import Stack from '@mui/material/Stack';
-import { useEffect, useState } from 'react'
 import { Grid } from '@mui/material';
-import Paper from '@mui/material/Paper';
+import styles from "./itemlistcontainer.module.css";
+import { useState } from 'react';
 import { styled } from '@mui/material/styles';
-import styles from "./itemlistcontainer.module.css"
+import Paper from '@mui/material/Paper';
+import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea} from '@mui/material';
-import { Link } from 'react-router-dom';
 
-const ItemListContainer = () => {
-  const [productos, setProductos] = useState([]);
+const ItemListContainer = ({text, productos}) => {
+
   const [searchTitle, setSearchTitle] = useState("");
   const [filterParam, setFilterParam] = useState("");
-  const [page, setPage] = useState(1);
-  const handleChange = (event, value) => {setPage(value)};
-
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': '43042d8fc4msha20aff58a70e139p1d9673jsn2947d1830db7',
-      'X-RapidAPI-Host': 'rawg-video-games-database.p.rapidapi.com'
-    }
-  };
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -35,26 +23,12 @@ const ItemListContainer = () => {
     color: theme.palette.text.secondary,
   }));
 
-  const getJuegos = async () => {
-    try {
-      const result = await fetch(`https://rawg-video-games-database.p.rapidapi.com/games?key=b60fdf46e0c349e4b45580f1254d9014&page=${page}`, options);
-      const data = await result.json();
-      setProductos(data.results);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getJuegos();
-  }, [page])
-
   let itemStyle={textDecoration: "none"};
 
-  
-
   return (
-    <>
+  <div>
+
+    <h1 className={styles.titulo}>{text}</h1>
     <form className={styles.filtros}>
       <input className={styles.buscador} type="search" placeholder="Search" onChange={(e) => setSearchTitle(e.target.value)}/>
       <select onChange={(e)=>{setFilterParam(e.target.value)}}>
@@ -62,6 +36,7 @@ const ItemListContainer = () => {
         <option value="Action">Action</option>
         <option value="Adventure">Adventure</option>
         <option value="RPG">RPG</option>
+        <option value="RPG">JRPG</option>
         <option value="Shooter">Shooter</option>
         <option value="Puzzle">Puzzle</option>
         <option value="Indie">Indie</option>
@@ -72,7 +47,7 @@ const ItemListContainer = () => {
       </select>
     </form>
     <Grid container>
-      {productos.filter((value)=>{
+    {productos.filter((value)=>{
         if(searchTitle==="" && filterParam===""){return value}
         else if (filterParam==="" &&  (value.name.toLowerCase().includes(searchTitle.toLocaleLowerCase()))){
           return value;
@@ -108,7 +83,8 @@ const ItemListContainer = () => {
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h7" component="div">{product.name}</Typography>
-                    <Typography gutterBottom variant="p" component="div"><p></p>$500</Typography>
+                    <Typography gutterBottom variant="p" component="div"><p></p>US${product.price}</Typography>
+                    <Typography gutterBottom variant="p" component="div">{product.platform}</Typography>
                   </CardContent>
                 </CardActionArea>
               </Card>
@@ -118,12 +94,7 @@ const ItemListContainer = () => {
       ))}
     </Grid>
 
-    <div className={styles.container}>
-      <Stack spacing={2}>
-        <Pagination count={44346} page={page} onChange={handleChange} />
-      </Stack>
-    </div>
-    </>
+  </div>
   )
 }
 
