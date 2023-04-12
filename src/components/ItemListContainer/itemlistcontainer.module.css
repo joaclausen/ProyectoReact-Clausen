@@ -1,8 +1,3 @@
-.container{
-    display: flex;
-    justify-content: space-evenly;
-}
-
 .filtros{
     margin: 1vh;
     display: flex;
@@ -12,10 +7,4 @@
 .buscador{
     border: gray 1px solid;
     padding: 0.5vh;
-}
-
-.titulo{
-    padding: 10vh;
-    font-size: 100px;
-    text-align: center;
 }
