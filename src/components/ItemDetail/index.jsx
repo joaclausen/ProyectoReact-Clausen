@@ -6,7 +6,8 @@ const ItemDetail = ({producto}) => {
         <h1 className={styles.titulo}>{producto.name}</h1>
         <img className={styles.imagen} src={producto.background_image} alt={producto.name}/>
         <p className={styles.descripcion}>{producto.description}</p>
-        <p className={styles.precio}>{producto.price}</p>
+        <p className={styles.plataforma}>Console: {producto.platform}</p>
+        <p className={styles.precio}>Price: US${producto.price}</p>
     </div>
   )
 }

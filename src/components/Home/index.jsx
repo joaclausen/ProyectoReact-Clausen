@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./home.module.css";
 import { Button } from "@mui/material";
-import { Box } from "@mui/system";
 
 const Home = ({text}) => {
   return (
