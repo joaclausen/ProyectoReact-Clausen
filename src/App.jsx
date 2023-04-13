@@ -9,12 +9,15 @@ import ItemDetailContainer from './components/ItemDetailContainer';
 import {collection, getDocs} from "firebase/firestore";
 import db from "../db/firebase-config";
 import { useEffect, useState } from "react";
+import CartWidget from './components/CartWidget';
 
 function App() {
 
   const [productos, setProductos] = useState([]);
   const productosRef = collection (db, "Productos");
-  let {id} = useParams();
+  const carritoRef = collection (db, "Cart");
+  const [cantidad, setCantidad] = useState(0);
+  const [carrito, setCarrito] = useState([]);
 
   
 
@@ -24,11 +27,17 @@ function App() {
     setProductos(productos);
   }
 
+  const getCantidad = async () => {
+     const cartCollection = await getDocs(carritoRef);
+     const carrito = cartCollection.docs.map((doc) =>  ({...doc.data(), id: doc.id}));
+     setCarrito(carrito);
+     setCantidad(carrito.length);
+  }
+
   useEffect(() => {
     getProductos();
+    getCantidad();
   }, []);
-
-  console.log(productos);
 
   const darkTheme = createTheme({
     palette: {
@@ -39,12 +48,13 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme} className={styles.container}>
       <CssBaseline />
-      <Navbar/>
+      <Navbar cantidad={cantidad}/>
       <Routes>
         <Route path="/" element={<Navigate to="/home"/>}/>
         <Route path="/home" element={<Home text="WELCOME TO OVG"/>}/>
         <Route path="/productos" element={<ItemListContainer productos={productos}/>}/>
         <Route path="/productos/:id" element={<ItemDetailContainer/>}/>
+        <Route path="/cart" element={<CartWidget carrito={carrito}/>}/>
         <Route path="*" element={<img className={styles.notFound}  src="https://ucarecdn.com/8d79cbc5-bbb0-4664-9379-1e891283c778/404.jpg" alt="404 not found"/>}/>
       {/* NO FUNCIONA: */}
         {/* <Route path="/categories/:id" element={<ItemListContainer />}/>  */}
