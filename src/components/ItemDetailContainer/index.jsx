@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import styles from "./itemdetailcontainer.module.css"
 import { Button } from '@mui/material';
 import { useEffect, useState } from "react";
-import { addDoc, collection, doc, getDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getDocs, increment, updateDoc } from "firebase/firestore";
 import db from "../../../db/firebase-config";
 import ItemDetail from "../ItemDetail";
 
@@ -23,14 +23,27 @@ function ItemDetailContainer() {
 
   useEffect(() => {
     getItem();
-  }, [])
+  }, []);
+
   const cartAdd = async(e) =>{
     e.preventDefault();
-    const producto={
-      titleId: id,
-      title: item.name,
-    }
-    await addDoc(cartRef, producto);
+    const cartCollection = await getDocs(cartRef);
+    const carrito = cartCollection.docs.map((doc) =>  ({...doc.data(), id: doc.id}));
+    if (carrito.filter(e => e.titleId === id).length > 0){
+      const i = carrito.findIndex(e => e.titleId === id);
+      const idCarrito=carrito[i].id;
+      const cartUpdate = doc(db, "Cart", idCarrito);
+      await updateDoc(cartUpdate, {
+        cantidad: increment(1)
+      });
+    } else {
+        const producto={
+        titleId: id,
+        title: item.name,
+        cantidad: 1
+        }
+        await addDoc(cartRef, producto);
+      }
   }
 
   return (

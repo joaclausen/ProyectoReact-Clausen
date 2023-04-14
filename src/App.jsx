@@ -6,7 +6,7 @@ import {Navigate, Route, Routes, useParams } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import ItemDetailContainer from './components/ItemDetailContainer';
-import {collection, getDocs} from "firebase/firestore";
+import {collection, deleteDoc, getDocs, updateDoc} from "firebase/firestore";
 import db from "../db/firebase-config";
 import { useEffect, useState } from "react";
 import CartWidget from './components/CartWidget';
