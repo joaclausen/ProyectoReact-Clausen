@@ -3,3 +3,25 @@
     left: 50%;
     transform: translate(-50%, 0%);
 }
+.item{
+    text-align: center;
+    padding: 1vh;
+}
+
+.boton{
+    margin: 0.5vw !important;
+}
+
+.padre{
+    text-align: center;
+    width: 10vw;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.checkoutinterno{
+    text-decoration: none;
+    color: black;
+}
